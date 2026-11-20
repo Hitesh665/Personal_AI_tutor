@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Exam Hackers - Login & Signup</title>
+  <!-- font -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+ <link rel="stylesheet" href="login.css">
+</head>
+<body>
+
+  <div class="main-container">
+
+    <!-- left area -->
+    <div class="left-panel">
+      <div></div>
+
+      <div class="brand-content">
+        <div class="eh-logo">EH</div>
+        <p class="small-tagline">EXAM PREPARATION, MADE SIMPLE</p>
+        <h1 class="main-heading">Welcome to<br>Exam Hackers</h1>
+        <p class="sub-text">
+          Keep your preparation moving with one simple place for your exam journey.
+        </p>
+      </div>
+
+      <div class="bottom-badge">
+        <span class="orange-dot"></span>
+        <span>Built for focused learners</span>
+      </div>
+
+      <!-- Simple Decorative Rings -->
+      <div class="circle-decor circle-1"></div>
+      <div class="circle-decor circle-2"></div>
+      <div class="circle-decor circle-3"></div>
+    </div>
+
+    <!-- right area -->
+    <div class="right-panel">
+      <div class="form-box">
+
+        <p id="formEyebrow" class="account-label">YOUR ACCOUNT</p>
+        <h2 id="formHeading" class="form-title">Log in to continue</h2>
+        <p id="formSubheading" class="form-subtitle">Pick up where you left off.</p>
+
+        <!-- message -->
+        <div id="statusBanner" class="message-box">
+          <span id="statusIcon">✓</span>
+          <div style="flex: 1;">
+            <strong id="statusTitle"></strong>
+            <div id="statusMessage"></div>
+          </div>
+          <button type="button" id="closeBannerBtn" class="close-msg-btn">✕</button>
+        </div>
+
+        <!-- account tabs -->
+        <div id="tabSwitcher" class="tab-container">
+          <button type="button" id="tabSignInBtn" class="tab-btn active">Sign in</button>
+          <button type="button" id="tabCreateBtn" class="tab-btn">Create account</button>
+        </div>
+
+        <!-- social buttons -->
+        <div id="oauthSection" class="social-buttons">
+          <button type="button" id="googleAuthBtn" class="social-btn">
+            <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true">
+              <path fill="#4285F4" d="M21.35 11.1h-9.17v2.73h6.51c-.33 3.81-3.5 5.44-6.5 5.44C8.36 19.27 5 16.25 5 12c0-4.1 3.2-7.27 7.2-7.27 3.09 0 4.9 1.97 4.9 1.97L19 4.72S16.56 2 12.1 2C6.42 2 2.03 6.8 2.03 12c0 5.05 4.13 10 10.22 10 5.35 0 9.25-3.67 9.25-9.09 0-1.15-.15-1.81-.15-1.81Z"/>
+            </svg>
+            <span>Continue with Google</span>
+          </button>
+
+          <button type="button" id="appleAuthBtn" class="social-btn">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+              <path d="M16.365 1.43c0 1.14-.493 2.27-1.177 3.08-.744.9-1.99 1.57-2.987 1.57-.12 0-.23-.02-.3-.03-.01-.06-.04-.22-.04-.39 0-1.15.572-2.27 1.206-2.98.804-.94 2.142-1.64 3.248-1.68.03.13.05.28.05.43zm4.565 15.71c-.03.07-.463 1.58-1.518 3.12-.945 1.34-1.94 2.71-3.43 2.71-1.517 0-1.9-.88-3.63-.88-1.698 0-2.302.91-3.67.91-1.377 0-2.332-1.26-3.428-2.8-1.287-1.82-2.323-4.63-2.323-7.28 0-4.28 2.797-6.55 5.552-6.55 1.448 0 2.675.95 3.6.95.865 0 2.222-1.01 3.902-1.01.613 0 2.886.06 4.374 2.19-.13.09-2.383 1.37-2.383 4.19 0 3.26 2.854 4.42 2.955 4.45z"/>
+            </svg>
+            <span>Continue with Apple</span>
+          </button>
+        </div>
+
+        <!-- divider -->
+        <div id="orDivider" class="divider">
+          <div class="divider-line"></div>
+          <span class="divider-text">OR CONTINUE WITH</span>
+          <div class="divider-line"></div>
+        </div>
+
+        <!-- sign in -->
+        <form id="signInForm">
+          <div class="form-group">
+            <label for="signInEmail">Email address</label>
+            <input type="email" id="signInEmail" class="input-box" placeholder="you@example.com" required>
+          </div>
+
+          <div class="form-group">
+            <label for="signInPhone">Phone number <span class="optional-text">(optional)</span></label>
+            <input type="tel" id="signInPhone" class="input-box" placeholder="+91 98765 43210">
+          </div>
+
+          <div class="form-group">
+            <div class="label-row">
+              <label for="signInPassword">Password</label>
+              <button type="button" id="inlineForgotBtn" class="inline-forgot-link">Forgot password?</button>
+            </div>
+            <div class="password-wrapper">
+              <input type="password" id="signInPassword" class="input-box" placeholder="Enter your password" required>
+              <button type="button" id="toggleSignInPwdBtn" class="show-pwd-btn">Show</button>
+            </div>
+          </div>
+
+          <div class="actions-row">
+            <label class="remember-label">
+              <input type="checkbox" id="rememberMeCheck" checked>
+              <span>Remember me</span>
+            </label>
+
+            <!-- forgot password -->
+            <button type="button" id="forgotPasswordBtn" class="forgot-btn">
+              Forgot password
+            </button>
+          </div>
+
+          <button type="submit" id="signInSubmitBtn" class="submit-btn">Sign in to Exam Hackers</button>
+        </form>
+
+        <!-- account form -->
+        <form id="createAccountForm" class="hidden">
+          <div class="form-group">
+            <label for="createEmail">Email address</label>
+            <input type="email" id="createEmail" class="input-box" placeholder="you@example.com" required>
+          </div>
+
+          <div class="form-group">
+            <label for="createPhone">Phone number <span class="optional-text">(optional)</span></label>
+            <input type="tel" id="createPhone" class="input-box" placeholder="+91 98765 43210">
+          </div>
+
+          <div class="form-group">
+            <label for="createPassword">Create password</label>
+            <div class="password-wrapper">
+              <input type="password" id="createPassword" class="input-box" placeholder="Minimum 8 characters" required>
+              <button type="button" id="toggleCreatePwdBtn" class="show-pwd-btn">Show</button>
+            </div>
+          </div>
+
+          <button type="submit" id="createSubmitBtn" class="submit-btn">Create account</button>
+        </form>
+
+        <!-- reset form -->
+        <form id="forgotPasswordForm" class="hidden">
+          <div class="helper-note">
+            Enter your registered email address or phone number below and we will send you a password reset link.
+          </div>
+
+          <div class="form-group">
+            <label for="resetEmail">Email address</label>
+            <input type="email" id="resetEmail" class="input-box" placeholder="you@example.com">
+          </div>
+
+          <div class="form-group">
+            <label for="resetPhone">Phone number <span class="optional-text">(optional)</span></label>
+            <input type="tel" id="resetPhone" class="input-box" placeholder="+91 98765 43210">
+          </div>
+
+          <button type="submit" id="sendResetBtn" class="submit-btn">Send password reset link</button>
+          <button type="button" id="backToSignInBtn" class="back-btn">← Back to Sign in</button>
+        </form>
+
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    // skip login if user was already saved
+    if (localStorage.getItem('loggedInUser') || sessionStorage.getItem('loggedInUser')) {
+      location.replace('index.html');
+    }
+
+    // account functions
+    async function hashPassword(pw) {
+      if (!window.crypto || !crypto.subtle) return pw;     // crypto needs https or localhost
+      const buf = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(pw));
+      return Array.from(new Uint8Array(buf)).map(b => b.toString(16).padStart(2, '0')).join('');
+    }
+    // read accounts
+    function getAccounts() {
+      try { return JSON.parse(localStorage.getItem('accounts') || '{}'); } catch (e) { return {}; }
+    }
+    // save them
+    function saveAccounts(a) {
+      localStorage.setItem('accounts', JSON.stringify(a));
+    }
+    // mark login
+    function loginAs(email) {
+      const remember = document.getElementById('rememberMeCheck').checked;
+      const keep  = remember ? localStorage : sessionStorage;
+      const other = remember ? sessionStorage : localStorage;
+      other.removeItem('loggedInUser');         
+      keep.setItem('loggedInUser', email);
+      setTimeout(function () { location.replace('index.html'); }, 800);
+    }
+    // get page elements
+    const formEyebrow = document.getElementById('formEyebrow');
+    const formHeading = document.getElementById('formHeading');
+    const formSubheading = document.getElementById('formSubheading');
+
+    const tabSwitcher = document.getElementById('tabSwitcher');
+    const tabSignInBtn = document.getElementById('tabSignInBtn');
+    const tabCreateBtn = document.getElementById('tabCreateBtn');
+    const oauthSection = document.getElementById('oauthSection');
+    const orDivider = document.getElementById('orDivider');
+
+    const signInForm = document.getElementById('signInForm');
+    const createAccountForm = document.getElementById('createAccountForm');
+    const forgotPasswordForm = document.getElementById('forgotPasswordForm');
+
+    const signInEmail = document.getElementById('signInEmail');
+    const signInPhone = document.getElementById('signInPhone');
+    const signInPassword = document.getElementById('signInPassword');
+    const toggleSignInPwdBtn = document.getElementById('toggleSignInPwdBtn');
+
+    const createEmail = document.getElementById('createEmail');
+    const createPhone = document.getElementById('createPhone');
+    const createPassword = document.getElementById('createPassword');
+    const toggleCreatePwdBtn = document.getElementById('toggleCreatePwdBtn');
+
+    const resetEmail = document.getElementById('resetEmail');
+    const resetPhone = document.getElementById('resetPhone');
+
+    const inlineForgotBtn = document.getElementById('inlineForgotBtn');
+    const forgotPasswordBtn = document.getElementById('forgotPasswordBtn');
+    const backToSignInBtn = document.getElementById('backToSignInBtn');
+
+    const googleAuthBtn = document.getElementById('googleAuthBtn');
+    const appleAuthBtn = document.getElementById('appleAuthBtn');
+
+    const statusBanner = document.getElementById('statusBanner');
+    const statusTitle = document.getElementById('statusTitle');
+    const statusMessage = document.getElementById('statusMessage');
+    const closeBannerBtn = document.getElementById('closeBannerBtn');
+
+    // show messages
+    function showMessage(title, text, isError) {
+      statusBanner.style.display = 'flex';
+      statusTitle.textContent = title;
+      statusMessage.textContent = text;
+
+      if (isError) {
+        statusBanner.classList.add('error');
+      } else {
+        statusBanner.classList.remove('error');
+      }
+    }
+
+    function hideMessage() {
+      statusBanner.style.display = 'none';
+    }
+
+    closeBannerBtn.addEventListener('click', hideMessage);
+
+    // switch sign in
+    tabSignInBtn.addEventListener('click', function () {
+      hideMessage();
+      formEyebrow.textContent = 'YOUR ACCOUNT';
+      formHeading.textContent = 'Log in to continue';
+      formSubheading.textContent = 'Pick up where you left off.';
+
+      tabSignInBtn.classList.add('active');
+      tabCreateBtn.classList.remove('active');
+
+      signInForm.classList.remove('hidden');
+      createAccountForm.classList.add('hidden');
+      forgotPasswordForm.classList.add('hidden');
+    });
+
+    // switch create account
+    tabCreateBtn.addEventListener('click', function () {
+      hideMessage();
+      formEyebrow.textContent = 'YOUR ACCOUNT';
+      formHeading.textContent = 'Create your account';
+      formSubheading.textContent = 'Start building better study habits today.';
+
+      tabCreateBtn.classList.add('active');
+      tabSignInBtn.classList.remove('active');
+
+      createAccountForm.classList.remove('hidden');
+      signInForm.classList.add('hidden');
+      forgotPasswordForm.classList.add('hidden');
+    });
+
+    // forgot password screen
+    function openForgotPassword() {
+      hideMessage();
+      formEyebrow.textContent = 'YOUR ACCOUNT';
+      formHeading.textContent = 'Reset your password';
+      formSubheading.textContent = 'We will help you get back into your account.';
+
+      if (signInEmail.value) {
+        resetEmail.value = signInEmail.value;
+      }
+
+      tabSwitcher.classList.add('hidden');
+      oauthSection.classList.add('hidden');
+      orDivider.classList.add('hidden');
+      signInForm.classList.add('hidden');
+      createAccountForm.classList.add('hidden');
+      forgotPasswordForm.classList.remove('hidden');
+    }
+
+    inlineForgotBtn.addEventListener('click', openForgotPassword);
+    forgotPasswordBtn.addEventListener('click', openForgotPassword);
+
+    // back to sign in
+    backToSignInBtn.addEventListener('click', function () {
+      hideMessage();
+      tabSwitcher.classList.remove('hidden');
+      oauthSection.classList.remove('hidden');
+      orDivider.classList.remove('hidden');
+      tabSignInBtn.click();
+    });
+
+    // show and hide password
+    toggleSignInPwdBtn.addEventListener('click', function () {
+      if (signInPassword.type === 'password') {
+        signInPassword.type = 'text';
+        toggleSignInPwdBtn.textContent = 'Hide';
+      } else {
+        signInPassword.type = 'password';
+        toggleSignInPwdBtn.textContent = 'Show';
+      }
+    });
+
+    toggleCreatePwdBtn.addEventListener('click', function () {
+      if (createPassword.type === 'password') {
+        createPassword.type = 'text';
+        toggleCreatePwdBtn.textContent = 'Hide';
+      } else {
+        createPassword.type = 'password';
+        toggleCreatePwdBtn.textContent = 'Show';
+      }
+    });
+
+    // demo social login
+    googleAuthBtn.addEventListener('click', function () {
+      showMessage('Google Login', 'Redirecting to Google sign in...', false);
+    });
+
+    appleAuthBtn.addEventListener('click', function () {
+      showMessage('Apple Login', 'Redirecting to Apple sign in...', false);
+    });
+    // submit sign in
+    signInForm.addEventListener('submit', async function (event) {
+      event.preventDefault();
+      const email = signInEmail.value.trim().toLowerCase();
+      const pw = signInPassword.value;
+      const emailIsEmpty = email === '';
+      const passwordIsEmpty = pw === '';
+
+      if (emailIsEmpty || passwordIsEmpty) {
+        showMessage('Missing fields', 'Please enter both your email and password.', true);
+        return;
+      }
+      const account = getAccounts()[email];
+      if (!account) {
+        showMessage('No account found', 'Create an account first, then sign in.', true);
+        return;
+      }
+      if (account.hash !== await hashPassword(pw)) {
+        showMessage('Wrong password', 'The password you entered is incorrect.', true);
+        return;
+      }
+      showMessage('Login Successful!', 'Redirecting to home page...', false);
+      loginAs(email);
+    });
+
+    // submit create account
+    createAccountForm.addEventListener('submit', async function (event) {
+      event.preventDefault();
+      const email = createEmail.value.trim().toLowerCase();
+      const password = createPassword.value;
+      const passwordLength = password.length;
+      const emailIsEmpty = email === '';
+
+      if (emailIsEmpty || passwordLength < 8) {
+        showMessage('Check details', 'Please enter a valid email and a password of at least 8 characters.', true);
+        return;
+      }
+      const accounts = getAccounts();
+      if (accounts[email]) {
+        showMessage('Account exists', 'This email is already registered. Please sign in.', true);
+        return;
+      }
+      accounts[email] = {
+        hash: await hashPassword(password),
+        phone: createPhone.value.trim()
+      };
+      saveAccounts(accounts);
+      showMessage('Account Created!', 'Your Exam Hackers account is ready.', false);
+      loginAs(email);
+    });
+
+    // submit forgot password
+    forgotPasswordForm.addEventListener('submit', function (event) {
+      event.preventDefault();
+      if (resetEmail.value.trim() === '' && resetPhone.value.trim() === '') {
+        showMessage('Enter email or phone', 'Please provide your email or phone number to reset your password.', true);
+        return;
+      }
+      showMessage('Reset Link Sent!', 'Check your inbox for the password reset instructions.', false);
+    });
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,1051 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>index</title>
+    <script>
+      // check if login was done
+      function getLoggedInUser() {
+        return localStorage.getItem('loggedInUser') || sessionStorage.getItem('loggedInUser');
+      }
+
+      // send to login if no user is stored
+      function requireLogin() {
+        if (!getLoggedInUser()) location.replace('login.html');
+      }
+      requireLogin();
+      // also check after page back/forward
+      window.addEventListener('pageshow', requireLogin);
+      function logout() {
+        localStorage.removeItem('loggedInUser');
+        sessionStorage.removeItem('loggedInUser');
+        location.replace('login.html');
+      }
+    </script>
+    <link rel="stylesheet" href="indexStyle.css">
+</head>
+
+<body>
+
+<!-- main website area -->
+<div id="body">
+
+    <!-- menu button -->
+    <button id="menu_btn" type="button" title="open sidebar" class="btn">
+        <svg viewBox="0 0 25 25" width="25" height="25" stroke-width="2" stroke="currentcolor">
+            <line x1="5" x2="19" y1="9" y2="9"/>
+            <line x1="5" x2="22" y1="14" y2="14"/>
+            <line x1="5" x2="19" y1="19" y2="19"/>
+        </svg>
+    </button>
+
+    <!-- first line of the heading -->
+    <div class="half_head">
+        <div class="head_div">
+            <span class="letters" id="w1">W</span>
+            <span class="letters" id="e1">e</span>
+            <span class="letters" id="l1">l</span>
+            <span class="letters" id="c1">c</span>
+            <span class="letters" id="o1">o</span>
+            <span class="letters" id="m1">m</span>
+            <span class="letters" id="e2">e</span>
+        </div>
+        <div class="head_div">
+            <span class="letters" id="t1">t</span>
+            <span class="letters" id="o2">o</span>
+        </div>
+        <div class="head_div">
+            <span class="letters" id="p1">p</span>
+            <span class="letters" id="e3">e</span>
+            <span class="letters" id="r1">r</span>
+            <span class="letters" id="s1">s</span>
+            <span class="letters" id="o3">o</span>
+            <span class="letters" id="n1">n</span>
+            <span class="letters" id="a1">a</span>
+            <span class="letters" id="l2">l</span>
+            <span class="letters" id="i1">i</span>
+            <span class="letters" id="s2">s</span>
+            <span class="letters" id="e4">e</span>
+            <span class="letters" id="d1">d</span>
+        </div>
+    </div>
+    <!-- second line -->
+    <div class="s_half_head">
+        <div class="head_div">
+            <span class="letters" id="e5">e</span>
+            <span class="letters" id="x1">x</span>
+            <span class="letters" id="a2">a</span>
+            <span class="letters" id="m2">m</span>
+        </div>
+        <div class="head_div">
+            <span class="letters" id="p2">P</span>
+            <span class="letters" id="r2">r</span>
+            <span class="letters" id="e6">e</span>
+            <span class="letters" id="p3">p</span>
+            <span class="letters" id="etc">...</span>
+        </div> 
+    </div>
+    <!-- messages go here -->
+    <div id="chat_view"></div>
+    <!-- Chatbox -->
+    <div id="chatbox" class="full_chat">
+
+        <button id="addbtn" type="button" title="add files and more" class="btn">
+            <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentcolor">
+                <line x1="0" y1="12" x2="24" y2="12" stroke-width="2"/>
+                <line x1="12" y1="0" x2="12" y2="24" stroke-width="2"/>
+            </svg>
+        </button>
+
+        <textarea placeholder="Ask anything" class="ask_holder" id="ask_holder"></textarea>
+
+        <button id="micbtn" type="button" title="dictate" class="btn">
+            <svg viewBox="0 0 20 22" width="20" height="22" stroke="currentcolor">
+                <line x1="10" x2="10" y1="17" y2="21" stroke-width="1"/>
+                <rect x="7" y="3" width="6" height="10" stroke-width="1" rx="3" ry="3"/>
+                <path d="M 10 17 A 7 7 0 0 0 17 9"/>
+                <path d="M 3 9 A 7 7 0 0 0 10 17"/>
+            </svg>
+        </button>
+
+        <button id="talkbtn" type="button" title="use voice mode" class="btn">
+            <svg viewBox="0 0 20 20" width="20" height="20" stroke-width="2" stroke="currentcolor">
+                <line x1="2" x2="2" y1="11" y2="13"/>
+                <line x1="6" x2="6" y1="9" y2="15"/>
+                <line x1="10" x2="10" y1="5" y2="19"/>
+                <line x1="14" x2="14" y1="9" y2="15"/>
+                <line x1="18" x2="18" y1="11" y2="13"/>
+            </svg>
+        </button>
+        <button id="sendbtn" type="button" title="send message" class="btn">
+            <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentcolor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="12" y1="20" x2="12" y2="5"/>
+                <polyline points="5 12 12 5 19 12"/>
+            </svg>
+        </button>
+
+        <!-- file menu -->
+        <div id="add_menu">
+            <button type="button" id="add_file" class="menu_item">Upload file</button>
+            <button type="button" id="add_image" class="menu_item">Upload image</button>
+        </div>
+        <div id="file_chips"></div>
+        <input type="file" id="file_input" multiple hidden>
+    </div>
+
+    <!-- flash card part -->
+    <div id="flash_view">
+
+        <div id="f_top">
+            <h2 id="f_title">Flash cards</h2>
+            <button id="f_close" type="button" title="close" class="btn">
+                <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round">
+                    <line x1="5" y1="5" x2="19" y2="19"/>
+                    <line x1="19" y1="5" x2="5" y2="19"/>
+                </svg>
+            </button>
+        </div>
+
+        <form id="f_form">
+            <label for="f_subject">Subject</label>
+            <select id="f_subject" class="f_input">
+                <option value="">Select subject</option>
+                <option>Physics</option>
+                <option>Chemistry</option>
+                <option>Mathematics</option>
+                <option>Biology</option>
+                <option>English</option>
+                <option>Computer Science</option>
+                <option>Other</option>
+            </select>
+
+            <label for="f_chapter">Chapter</label>
+            <input type="text" id="f_chapter" class="f_input" placeholder="e.g. Laws of Motion">
+
+            <label for="f_topic">Topic</label>
+            <input type="text" id="f_topic" class="f_input" placeholder="e.g. Newton's second law">
+
+            <label for="f_count">Number of cards</label>
+            <select id="f_count" class="f_input">
+                <option>5</option>
+                <option>10</option>
+                <option>15</option>
+                <option>20</option>
+            </select>
+
+            <button type="submit" id="f_generate">Generate flash cards</button>
+        </form>
+
+        <!-- cards will appear here -->
+        <div id="card_area">
+            <div id="card_scene">
+                <div id="card">
+                    <div class="card_face card_front" id="card_front"></div>
+                    <div class="card_face card_back" id="card_back"></div>
+                </div>
+            </div>
+            <p id="card_hint">Click the card to flip it</p>
+
+            <div id="card_nav">
+                <button type="button" id="card_prev" class="nav_btn">&larr; Prev</button>
+                <span id="card_count"></span>
+                <button type="button" id="card_next" class="nav_btn">Next &rarr;</button>
+            </div>
+        </div>
+
+    </div>
+    <!-- progress page -->
+    <div id="progress_view">
+
+        <div id="pr_top">
+            <h2 id="pr_title">Track progress</h2>
+            <button id="pr_close" type="button" title="close" class="btn">
+                <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round">
+                    <line x1="5" y1="5" x2="19" y2="19"/>
+                    <line x1="19" y1="5" x2="5" y2="19"/>
+                </svg>
+            </button>
+        </div>
+
+        <div id="pr_banner">
+            <p>This is sample data. Start learning to track your real progress.</p>
+            <button type="button" id="pr_start">Start learning</button>
+        </div>
+
+        <div id="pr_stats">
+            <div class="pr_stat"><span class="pr_num">0</span><span class="pr_label">DAY STREAK</span></div>
+            <div class="pr_stat"><span class="pr_num">42</span><span class="pr_label">CARDS DONE</span></div>
+            <div class="pr_stat"><span class="pr_num">12.5</span><span class="pr_label">HOURS</span></div>
+            <div class="pr_stat"><span class="pr_num">6</span><span class="pr_label">TOPICS</span></div>
+        </div>
+
+        <h3 class="pr_head">This week (study hours)</h3>
+        <div id="pr_chart">
+            <div class="bar_col"><div class="bar" style="height:40%"></div><span>Mon</span></div>
+            <div class="bar_col"><div class="bar" style="height:70%"></div><span>Tue</span></div>
+            <div class="bar_col"><div class="bar" style="height:55%"></div><span>Wed</span></div>
+            <div class="bar_col"><div class="bar" style="height:90%"></div><span>Thu</span></div>
+            <div class="bar_col"><div class="bar" style="height:30%"></div><span>Fri</span></div>
+            <div class="bar_col"><div class="bar" style="height:65%"></div><span>Sat</span></div>
+            <div class="bar_col"><div class="bar" style="height:20%"></div><span>Sun</span></div>
+        </div>
+
+        <h3 class="pr_head">Subject progress</h3>
+        <div id="pr_subjects">
+            <div class="sub_row"><div class="sub_info"><span>Physics</span><span>65%</span></div><div class="sub_track"><div class="sub_fill" style="width:65%"></div></div></div>
+            <div class="sub_row"><div class="sub_info"><span>Chemistry</span><span>40%</span></div><div class="sub_track"><div class="sub_fill" style="width:40%"></div></div></div>
+            <div class="sub_row"><div class="sub_info"><span>Mathematics</span><span>80%</span></div><div class="sub_track"><div class="sub_fill" style="width:80%"></div></div></div>
+            <div class="sub_row"><div class="sub_info"><span>Biology</span><span>25%</span></div><div class="sub_track"><div class="sub_fill" style="width:25%"></div></div></div>
+        </div>
+
+    </div>
+</div>
+<!-- sidebar -->
+<div class="sideBar">
+
+    <!-- close button -->
+    <button id="close_btn" title="close sidebar" type="button" class="btn">
+        <svg viewBox="0 0 25 25" width="25" height="25" stroke-width="2" stroke="currentcolor">
+            <line x1="5" x2="19" y1="9" y2="9"/>
+            <line x1="5" x2="22" y1="14" y2="14"/>
+            <line x1="5" x2="19" y1="19" y2="19"/>
+        </svg>
+    </button>
+
+    <button id="new_chat" class="btn">
+        <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 20h9"/>
+            <path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4Z"/>
+        </svg>
+        New chat
+    </button>
+
+    <button id="track_progress" class="btn">
+        <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round">
+            <line x1="4" y1="18" x2="4" y2="22"/>
+            <line x1="9" y1="12" x2="9" y2="22"/>
+            <line x1="14" y1="15" x2="14" y2="22"/>
+            <line x1="19" y1="6" x2="19" y2="22"/>
+        </svg>
+        Track progress
+    </button>
+
+    <button id="revision" class="btn" title="generate revision flash card">
+        <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="2" y="6" width="15" height="12" rx="2"/>
+            <path d="M7 6V4a2 2 0 0 1 2-2h11a2 2 0 0 1 2 2v9a2 2 0 0 1-2 2h-3"/>
+        </svg>
+        Flash cards
+    </button>
+
+    <!-- opens exam settings -->
+    <button id="personalize" class="btn" title="Personalized exam preparation">
+        <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="4" y1="21" x2="4" y2="14"/>
+            <line x1="4" y1="10" x2="4" y2="3"/>
+            <line x1="12" y1="21" x2="12" y2="12"/>
+            <line x1="12" y1="8" x2="12" y2="3"/>
+            <line x1="20" y1="21" x2="20" y2="16"/>
+            <line x1="20" y1="12" x2="20" y2="3"/>
+            <line x1="1" y1="14" x2="7" y2="14"/>
+            <line x1="9" y1="8" x2="15" y2="8"/>
+            <line x1="17" y1="16" x2="23" y2="16"/>
+        </svg>
+        Personalize for your exam
+    </button>
+
+    <!-- saved exam details -->
+    <div id="exam_box">
+        <div id="exam_head">
+            <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="9"/>
+                <polyline points="12 7 12 12 15 14"/>
+            </svg>
+            <span id="exam_name">Target Exam</span>
+            <button id="exam_edit" type="button">Edit</button>
+        </div>
+
+        <div id="exam_timer">
+            <div class="t_unit">
+                <span id="t_days" class="t_num">--</span>
+                <span class="t_label">DAYS</span>
+            </div>
+            <span class="t_colon">:</span>
+            <div class="t_unit">
+                <span id="t_hours" class="t_num">--</span>
+                <span class="t_label">HOURS</span>
+            </div>
+            <span class="t_colon">:</span>
+            <div class="t_unit">
+                <span id="t_mins" class="t_num">--</span>
+                <span class="t_label">MINS</span>
+            </div>
+        </div>
+    </div>
+
+    <label id="chat_history">Chat history</label>
+    <div id="history_list"></div>
+
+    <!-- account at bottom -->
+    <div id="user_box">
+        <span id="user_email" title="signed in as"></span>
+        <button id="logout_btn" type="button" title="log out">Log out</button>
+    </div>
+</div>
+<!-- exam settings popup -->
+<div id="p_overlay">
+    <div id="p_modal">
+
+        <div id="p_top">
+            <h2 id="p_title">Personalize for your exam</h2>
+            <button id="p_close" type="button" title="close" class="btn">
+                <svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentcolor" stroke-width="2" stroke-linecap="round">
+                    <line x1="5" y1="5" x2="19" y2="19"/>
+                    <line x1="19" y1="5" x2="5" y2="19"/>
+                </svg>
+            </button>
+        </div>
+
+        <form id="p_form">
+            <label for="p_class">Class studying in</label>
+            <select id="p_class" class="p_input" required>
+                <option value="">Select class</option>
+                <option>Class 9</option>
+                <option>Class 10</option>
+                <option>Class 11</option>
+                <option>Class 12</option>
+                <option>Dropper</option>
+                <option>College / Other</option>
+            </select>
+
+            <label for="p_exam">Target exam</label>
+            <input type="text" id="p_exam" class="p_input" placeholder="e.g. JEE Main, NEET, Board exams" required>
+
+            <label for="p_date">Date of exam</label>
+            <input type="date" id="p_date" class="p_input" required>
+
+            <label for="p_weak">Weak topics / subjects</label>
+            <textarea id="p_weak" class="p_input" rows="3" placeholder="e.g. Organic Chemistry, Rotational Motion"></textarea>
+
+            <label for="p_hours">Study hours per day</label>
+            <input type="number" id="p_hours" class="p_input" min="1" max="16" placeholder="e.g. 4">
+
+            <label for="p_lang">Preferred explanation language</label>
+            <select id="p_lang" class="p_input">
+                <option>English</option>
+                <option>Hindi</option>
+                <option>Hinglish</option>
+            </select>
+
+            <div id="p_actions">
+                <button type="submit" id="p_save">Save</button>
+                <button type="button" id="p_reset">Reset</button>
+            </div>
+        </form>
+
+    </div>
+</div>
+<!-- voice mode -->
+<div id="v_overlay">
+    <div id="v_orb"></div>
+    <p id="v_status">Listening...</p>
+    <p id="v_text"></p>
+    <button type="button" id="v_end">End voice mode</button>
+</div>
+<script>
+// account
+document.getElementById('user_email').textContent = getLoggedInUser() || '';
+
+// log out
+document.getElementById('logout_btn').addEventListener('click', () => {
+  if (confirm('Log out of Personal Tutor?')) logout();
+});
+
+// letters in the big heading
+const letters = document.querySelectorAll('.letters');
+
+const shake = [
+  { transform: 'translate(0px,0px) rotate(0deg)' },
+  { transform: 'translate(-12px,0px) rotate(4deg)' },
+  { transform: 'translate(12px,0px) rotate(-4deg)' },
+  { transform: 'translate(-6px,0px) rotate(2deg)' },
+  { transform: 'translate(6px,0px) rotate(-2deg)' },
+  { transform: 'translate(0px,0px) rotate(0deg)' }
+];
+
+const SHAKE_TIME = 700;
+const EXTRA_TIME = 700;
+
+function playShake(el) {
+  if (el.isShaking) return;
+  el.isShaking = true;
+  const anim = el.animate(shake, { duration: SHAKE_TIME, iterations: 1 });
+  anim.onfinish = () => {
+    el.isShaking = false;
+    el.litTimer = setTimeout(() => el.classList.remove('lit'), EXTRA_TIME);
+  };
+}
+
+window.addEventListener('load', () => letters.forEach(playShake));
+
+letters.forEach(el => {
+  el.addEventListener('mouseenter', () => {
+    el.classList.add('lit');
+    clearTimeout(el.litTimer);
+    playShake(el);
+  });
+});
+
+// sidebar open and close
+const menuBtn  = document.getElementById('menu_btn');
+const closeBtn = document.getElementById('close_btn');
+const sideBar  = document.querySelector('.sideBar');
+const bodyDiv  = document.getElementById('body');
+
+menuBtn.addEventListener('click', () => {
+  sideBar.classList.remove('closed');
+  bodyDiv.classList.remove('sidebar-closed');
+});
+
+closeBtn.addEventListener('click', () => {
+  sideBar.classList.add('closed');
+  bodyDiv.classList.add('sidebar-closed');
+});
+
+// make textarea taller when typing
+const askBox = document.getElementById('ask_holder');
+
+askBox.addEventListener('input', () => {
+  askBox.style.height = 'auto';                                      // reset first
+  askBox.style.height = Math.min(askBox.scrollHeight, 200) + 'px';   // fit text, max 200px
+});
+
+// personalization popup
+const pOverlay = document.getElementById('p_overlay');
+const pForm    = document.getElementById('p_form');
+
+const pFields = ['p_class', 'p_exam', 'p_date', 'p_weak', 'p_hours', 'p_lang'];
+
+function getExamProfile() {
+  try {
+    const saved = JSON.parse(localStorage.getItem('examProfile') || 'null');
+    return saved && typeof saved === 'object' ? saved : null;
+  } catch (e) {
+    return null;
+  }
+}
+
+document.getElementById('p_date').min = new Date().toISOString().split('T')[0];
+
+function openPopup() {
+  const saved = getExamProfile() || {};
+  pFields.forEach(id => {
+    if (saved[id]) document.getElementById(id).value = saved[id];
+  });
+  pOverlay.classList.add('open');
+}
+
+function closePopup() {
+  pOverlay.classList.remove('open');
+}
+
+document.getElementById('personalize').addEventListener('click', openPopup);
+document.getElementById('p_close').addEventListener('click', closePopup);
+
+pOverlay.addEventListener('click', (e) => {
+  if (e.target === pOverlay) closePopup();
+});
+
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape') closePopup();
+});
+
+pForm.addEventListener('submit', (e) => {
+  e.preventDefault();                          // stop page reload
+  const data = {};
+  pFields.forEach(id => {
+    data[id] = document.getElementById(id).value.trim();
+  });
+  localStorage.setItem('examProfile', JSON.stringify(data));
+  closePopup();
+  refreshSidebar();
+});
+
+document.getElementById('p_reset').addEventListener('click', () => {
+  if (!confirm('Clear all your exam details?')) return;
+  localStorage.removeItem('examProfile');
+  pForm.reset();
+  refreshSidebar();
+  closePopup();
+});
+
+
+// countdown box
+const personalizeBtn = document.getElementById('personalize');
+const examBox  = document.getElementById('exam_box');
+const examName = document.getElementById('exam_name');
+const tDays    = document.getElementById('t_days');
+const tHours   = document.getElementById('t_hours');
+const tMins    = document.getElementById('t_mins');
+let countdownTimer;
+
+function pad(n) {
+  return String(n).padStart(2, '0');           // 5 becomes "05"
+}
+
+function updateCountdown(dateStr) {
+  let diff = new Date(dateStr + 'T00:00:00') - new Date();
+  if (diff < 0) diff = 0;                      // exam passed: show 00 : 00 : 00
+
+  tDays.textContent  = pad(Math.floor(diff / 86400000));
+  tHours.textContent = pad(Math.floor(diff / 3600000) % 24);
+  tMins.textContent  = pad(Math.floor(diff / 60000) % 60);
+}
+
+function refreshSidebar() {
+  const saved = getExamProfile();
+  clearInterval(countdownTimer);               // stop any old timer
+
+  if (saved && saved.p_date) {
+    personalizeBtn.style.display = 'none';
+    examBox.style.display = 'block';
+    examName.textContent = saved.p_exam;
+    updateCountdown(saved.p_date);
+    countdownTimer = setInterval(() => updateCountdown(saved.p_date), 30000);
+  } else {
+    personalizeBtn.style.display = '';
+    examBox.style.display = 'none';
+  }
+}
+
+document.getElementById('exam_edit').addEventListener('click', openPopup);
+
+refreshSidebar();
+
+// flash cards
+const fForm     = document.getElementById('f_form');
+const cardArea  = document.getElementById('card_area');
+const cardEl    = document.getElementById('card');
+const cardFront = document.getElementById('card_front');
+const cardBack  = document.getElementById('card_back');
+const cardCount = document.getElementById('card_count');
+
+let cards = [];
+let cardIndex = 0;
+
+function showView(view) {
+  bodyDiv.classList.remove('show-flash', 'show-progress', 'show-chat');
+  if (view) bodyDiv.classList.add('show-' + view);
+  else if (currentChatId) bodyDiv.classList.add('show-chat');   // closing a page returns to the chat
+}
+
+document.getElementById('revision').addEventListener('click', () => showView('flash'));
+document.getElementById('f_close').addEventListener('click', () => showView(null));
+
+document.getElementById('new_chat').addEventListener('click', newChat);
+
+document.getElementById('track_progress').addEventListener('click', () => showView('progress'));
+document.getElementById('pr_close').addEventListener('click', () => showView(null));
+document.getElementById('pr_start').addEventListener('click', () => {
+  showView(null);
+  askBox.focus();
+});
+
+// sample cards for now
+async function generateCards(subject, chapter, topic, count) {
+  const about = topic || chapter || subject;
+  return Array.from({ length: count }, (_, i) => ({
+    q: 'Sample question ' + (i + 1) + ' about ' + about,
+    a: 'Sample answer ' + (i + 1) + ' (' + subject + ')'
+  }));
+}
+
+function showCard() {
+  cardEl.classList.remove('flipped');          // always start on the front
+  setTimeout(() => {                           // wait for the flip back, then swap text
+    cardFront.textContent = cards[cardIndex].q;
+    cardBack.textContent  = cards[cardIndex].a;
+  }, 200);
+  cardCount.textContent = (cardIndex + 1) + ' / ' + cards.length;
+}
+
+fForm.addEventListener('submit', async (e) => {
+  e.preventDefault();
+
+  const subject = document.getElementById('f_subject').value;
+  const chapter = document.getElementById('f_chapter').value.trim();
+  const topic   = document.getElementById('f_topic').value.trim();
+  const count   = Number(document.getElementById('f_count').value);
+
+  if (!subject && !chapter && !topic) {
+    alert('Please select a subject or enter a chapter / topic.');
+    return;
+  }
+
+  const btn = document.getElementById('f_generate');
+  btn.textContent = 'Generating...';
+  btn.disabled = true;
+
+  cards = await generateCards(subject || 'General', chapter, topic, count);
+  cardIndex = 0;
+  cardArea.style.display = 'block';
+  showCard();
+
+  btn.textContent = 'Generate flash cards';
+  btn.disabled = false;
+});
+
+document.getElementById('card_scene').addEventListener('click', () => {
+  cardEl.classList.toggle('flipped');
+});
+
+document.getElementById('card_next').addEventListener('click', () => {
+  cardIndex = (cardIndex + 1) % cards.length;
+  showCard();
+});
+document.getElementById('card_prev').addEventListener('click', () => {
+  cardIndex = (cardIndex - 1 + cards.length) % cards.length;
+  showCard();
+});
+// chat
+const chatView    = document.getElementById('chat_view');
+const historyList = document.getElementById('history_list');
+
+let chats = [];
+try { chats = JSON.parse(localStorage.getItem('chats') || '[]'); } catch (e) { chats = []; }
+
+let currentChatId = null;
+let busy = false;
+
+function saveChats() {
+  localStorage.setItem('chats', JSON.stringify(chats));
+}
+
+function renderHistory() {
+  historyList.innerHTML = '';
+
+  if (chats.length === 0) {
+    const empty = document.createElement('div');
+    empty.id = 'history_empty';
+    empty.textContent = 'No chats yet';
+    historyList.appendChild(empty);
+    return;
+  }
+
+  chats.forEach(chat => {                      // newest chats are first in the array
+    const item  = document.createElement('div');
+    item.className = 'h_item' + (chat.id === currentChatId ? ' active' : '');
+
+    const title = document.createElement('span');
+    title.className = 'h_title';
+    title.textContent = chat.title;
+
+    const del = document.createElement('button');
+    del.type = 'button';
+    del.className = 'h_del';
+    del.title = 'delete chat';
+    del.textContent = '×';
+
+    item.append(title, del);
+    item.addEventListener('click', () => openChat(chat.id));
+    del.addEventListener('click', (e) => {
+      e.stopPropagation();                     // don't also open the chat
+      deleteChat(chat.id);
+    });
+    historyList.appendChild(item);
+  });
+}
+
+function addMessage(role, text) {
+  const el = document.createElement('div');
+  el.className = 'msg ' + role;
+  el.textContent = text;                       // textContent keeps user text safe
+  chatView.appendChild(el);
+  chatView.scrollTop = chatView.scrollHeight;
+  return el;
+}
+
+function addThinking() {
+  const el = document.createElement('div');
+  el.className = 'msg bot thinking';
+  el.innerHTML = 'Thinking <span class="dots"><span></span><span></span><span></span></span>';
+  chatView.appendChild(el);
+  chatView.scrollTop = chatView.scrollHeight;
+  return el;
+}
+
+function getReply(chat) {
+  const isFirst = chat.messages.length === 1;  // only the user's first message so far
+  if (isFirst) {
+    const p = getExamProfile();
+    const forExam = (p && p.p_exam) ? ' for ' + p.p_exam : '';
+    return "I am here to help you. Let's start your preparation" + forExam + "! What would you like to study first?";
+  }
+  return "Got it! Real answers will show up here once the AI is connected.";
+}
+
+function openChat(id) {
+  const chat = chats.find(c => c.id === id);
+  if (!chat) return;
+  currentChatId = id;
+  chatView.innerHTML = '';
+  chat.messages.forEach(m => addMessage(m.role, m.text));
+  showView('chat');
+  renderHistory();
+}
+
+function newChat() {
+  currentChatId = null;
+  chatView.innerHTML = '';
+  showView(null);
+  askBox.value = '';
+  askBox.style.height = 'auto';
+  stopDictation();
+  attached = [];
+  renderChips();
+  updateSendState();
+  fForm.reset();
+  cardArea.style.display = 'none';
+  cards = [];
+  cardIndex = 0;
+  renderHistory();
+  askBox.focus();
+}
+
+function deleteChat(id) {
+  if (!confirm('Delete this chat?')) return;
+  chats = chats.filter(c => c.id !== id);
+  saveChats();
+  if (id === currentChatId) newChat();
+  else renderHistory();
+}
+
+function sendMessage(textOverride, onDone) {
+  stopDictation();                             // cancel voice typing if it is on
+
+  const fromVoice = typeof textOverride === 'string';
+  const typed = (fromVoice ? textOverride : askBox.value).trim();
+  const names = attached.map(f => f.name);
+  if ((!typed && names.length === 0) || busy) return;
+  busy = true;
+
+  let text = typed;
+  if (names.length) text += (text ? '\n' : '') + '📎 ' + names.join(', ');
+
+  // first message of a new chat: create it
+  let chat = chats.find(c => c.id === currentChatId);
+  if (!chat) {
+    chat = {
+      id: Date.now().toString(),
+      title: text.length > 35 ? text.slice(0, 35) + '…' : text,
+      messages: []
+    };
+    chats.unshift(chat);
+    currentChatId = chat.id;
+    chatView.innerHTML = '';
+  }
+
+  chat.messages.push({ role: 'user', text: text });
+  saveChats();
+  showView('chat');
+  addMessage('user', text);
+  renderHistory();
+
+  if (!fromVoice) {                            // voice mode keeps whatever is typed
+    askBox.value = '';
+    askBox.style.height = 'auto';
+  }
+  attached = [];
+  renderChips();
+  updateSendState();
+
+  const thinking = addThinking();
+  const chatId = chat.id;
+
+  setTimeout(() => {                           // "thinks" for 1 to 2 seconds
+    thinking.remove();
+    const reply = getReply(chat);
+    chat.messages.push({ role: 'bot', text: reply });
+    saveChats();
+    if (currentChatId === chatId) addMessage('bot', reply);
+    busy = false;
+    if (onDone) onDone(reply);                 // voice mode uses this to speak the reply
+  }, 1000 + Math.random() * 1000);
+}
+askBox.addEventListener('keydown', (e) => {
+  if (e.key === 'Enter' && !e.shiftKey) {
+    e.preventDefault();
+    sendMessage();
+  }
+});
+
+renderHistory();
+// buttons below the chat
+const chatboxEl = document.getElementById('chatbox');
+const sendBtn   = document.getElementById('sendbtn');
+const micBtn    = document.getElementById('micbtn');
+const talkBtn   = document.getElementById('talkbtn');
+const addBtn    = document.getElementById('addbtn');
+const addMenu   = document.getElementById('add_menu');
+const fileChips = document.getElementById('file_chips');
+const fileInput = document.getElementById('file_input');
+
+// files picked with the + button (File objects, max 5). Only their names are sent for now.
+let attached = [];
+
+function updateSendState() {
+  const has = askBox.value.trim() !== '' || attached.length > 0;
+  chatboxEl.classList.toggle('has-text', has);   // swaps voice button for send button
+}
+askBox.addEventListener('input', updateSendState);
+sendBtn.addEventListener('click', () => sendMessage());
+
+function renderChips() {
+  fileChips.innerHTML = '';
+  attached.forEach((f, i) => {
+    const chip = document.createElement('div');
+    chip.className = 'chip';
+
+    const name = document.createElement('span');
+    name.textContent = f.name;
+
+    const x = document.createElement('button');
+    x.type = 'button';
+    x.title = 'remove';
+    x.textContent = '×';
+    x.addEventListener('click', () => {
+      attached.splice(i, 1);
+      renderChips();
+      updateSendState();
+    });
+
+    chip.append(name, x);
+    fileChips.appendChild(chip);
+  });
+}
+
+function closeAddMenu() {
+  addMenu.classList.remove('open');
+}
+
+addBtn.addEventListener('click', (e) => {
+  e.stopPropagation();
+  if (addMenu.classList.contains('open')) { closeAddMenu(); return; }
+  const lift = fileChips.offsetHeight ? fileChips.offsetHeight + 12 : 6;
+  addMenu.style.bottom = 'calc(100% + ' + lift + 'px)';
+  addMenu.classList.add('open');
+});
+document.addEventListener('click', closeAddMenu);
+
+function pickFiles(accept) {
+  fileInput.accept = accept;
+  fileInput.click();
+  closeAddMenu();
+}
+document.getElementById('add_file').addEventListener('click', () => pickFiles(''));
+document.getElementById('add_image').addEventListener('click', () => pickFiles('image/*'));
+
+fileInput.addEventListener('change', () => {
+  Array.from(fileInput.files).forEach(f => {
+    const dup = attached.some(a => a.name === f.name && a.size === f.size);
+    if (!dup && attached.length < 5) attached.push(f);      // max 5 files
+  });
+  fileInput.value = '';                        // lets you pick the same file again
+  renderChips();
+  updateSendState();
+});
+
+const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+
+function speechLang() {
+  const p = getExamProfile();
+  return (p && p.p_lang === 'Hindi') ? 'hi-IN' : 'en-IN';
+}
+
+function noSpeechSupport() {
+  alert('Voice is not supported in this browser. Please use Chrome or Edge.');
+}
+
+let dictRec = null;
+let dictating = false;
+
+function startDictation() {
+  if (!SR) { noSpeechSupport(); return; }
+  if (voiceActive) return;
+  const base = askBox.value.trim();            // keep what was already typed
+
+  dictRec = new SR();
+  dictRec.lang = speechLang();
+  dictRec.continuous = true;
+  dictRec.interimResults = true;
+
+  dictRec.onresult = (e) => {
+    let t = '';
+    for (let i = 0; i < e.results.length; i++) t += e.results[i][0].transcript;
+    askBox.value = base ? base + ' ' + t : t;
+    askBox.dispatchEvent(new Event('input'));  // resize box + show send button
+  };
+  dictRec.onerror = (e) => {
+    if (e.error === 'not-allowed' || e.error === 'service-not-allowed') {
+      alert('Microphone access is blocked. Allow it in your browser settings.');
+    }
+  };
+  dictRec.onend = () => {
+    dictating = false;
+    micBtn.classList.remove('listening');
+  };
+
+  dictRec.start();
+  dictating = true;
+  micBtn.classList.add('listening');
+}
+
+function stopDictation() {
+  if (dictRec && dictating) {
+    dictRec.onresult = null;
+    dictRec.abort();
+  }
+}
+
+micBtn.addEventListener('click', () => {
+  if (dictating) dictRec.stop();               // stop but keep the text
+  else startDictation();
+});
+
+// voice mode
+const vOverlay = document.getElementById('v_overlay');
+const vStatus  = document.getElementById('v_status');
+const vText    = document.getElementById('v_text');
+let voiceActive = false;
+let voiceRec = null;
+
+function setVoiceState(state, msg) {
+  vOverlay.classList.remove('listening', 'speaking');
+  if (state === 'listening' || state === 'speaking') vOverlay.classList.add(state);
+  vStatus.textContent = msg;
+}
+
+function startVoice() {
+  if (!SR) { noSpeechSupport(); return; }
+  stopDictation();
+  voiceActive = true;
+  vText.textContent = '';
+  vOverlay.classList.add('open');
+  voiceListen();
+}
+
+function voiceListen() {
+  if (!voiceActive) return;
+  setVoiceState('listening', 'Listening...');
+  let finalText = '';
+
+  voiceRec = new SR();
+  voiceRec.lang = speechLang();
+  voiceRec.continuous = false;
+  voiceRec.interimResults = true;
+
+  voiceRec.onresult = (e) => {
+    let t = '';
+    for (let i = 0; i < e.results.length; i++) t += e.results[i][0].transcript;
+    vText.textContent = t;
+    if (e.results[e.results.length - 1].isFinal) finalText = t;
+  };
+  voiceRec.onerror = (e) => {
+    if (e.error === 'no-speech' || e.error === 'aborted') return;   // onend will retry
+    if (e.error === 'not-allowed' || e.error === 'service-not-allowed') {
+      alert('Microphone access is blocked. Allow it in your browser settings.');
+    } else {
+      alert('Voice mode stopped (' + e.error + ').');
+    }
+    endVoice();
+  };
+  voiceRec.onend = () => {
+    if (!voiceActive) return;
+    if (finalText.trim()) voiceReply(finalText.trim());
+    else setTimeout(voiceListen, 300);         // heard nothing: listen again
+  };
+
+  voiceRec.start();
+}
+
+function voiceReply(text) {
+  if (busy) { setTimeout(voiceListen, 300); return; }
+  setVoiceState('thinking', 'Thinking...');
+  vText.textContent = text;
+  sendMessage(text, (reply) => {
+    if (!voiceActive) return;
+    vText.textContent = reply;
+    speak(reply, voiceListen);
+  });
+}
+
+function speak(text, done) {
+  if (!('speechSynthesis' in window)) { setTimeout(done, 2000); return; }
+  speechSynthesis.cancel();
+  const u = new SpeechSynthesisUtterance(text);
+  u.lang = speechLang();
+  u.onend = u.onerror = () => { if (voiceActive) done(); };
+  setVoiceState('speaking', 'Speaking...');
+  speechSynthesis.speak(u);
+}
+
+function endVoice() {
+  voiceActive = false;
+  if (voiceRec) voiceRec.abort();
+  if ('speechSynthesis' in window) speechSynthesis.cancel();
+  vOverlay.classList.remove('open', 'listening', 'speaking');
+}
+
+talkBtn.addEventListener('click', startVoice);
+document.getElementById('v_end').addEventListener('click', endVoice);
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape') {
+    closeAddMenu();
+    if (voiceActive) endVoice();
+  }
+});
+</script>
+
+</body>
+</html>
